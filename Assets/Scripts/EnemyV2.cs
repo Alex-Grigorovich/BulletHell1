@@ -14,7 +14,13 @@ public class EnemyV2 : MonoBehaviour
     public float hitWaitTime = 1f;
     private float hitCounter;
     
-    
+    public float health = 5f;
+        
+
+	public float knockBackTime = .5f;
+    private float knockBackCounter;
+
+        
    void Start()
     {
         // Find the player GameObject by tag
@@ -36,6 +42,10 @@ public class EnemyV2 : MonoBehaviour
         {
             // Move enemy towards the player
             Vector3 direction = (player.position - transform.position).normalized;
+
+
+            DiscardingOpponent();
+            
             transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
             // Optional: rotate to face player
             if (direction != Vector3.zero)
@@ -54,6 +64,27 @@ public class EnemyV2 : MonoBehaviour
         }
     }
 
+
+    private void DiscardingOpponent()
+    {
+        
+        if (knockBackCounter > 0)
+        {
+            knockBackCounter -= Time.deltaTime;
+
+            if (speed > 0)
+            {
+                speed = -speed * 2f;
+            }
+
+            if (knockBackCounter <= 0)
+            {
+                speed = MathF.Abs(speed * .5f);
+            }
+        }
+        
+    }
+    
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player" && hitCounter <= 0f)
@@ -64,8 +95,26 @@ public class EnemyV2 : MonoBehaviour
         }
         
     }
-   
 
+    public void TakeDamage(float damageToTake)
+    {
+        health -= damageToTake;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+        
+        DamageNumberController.instance.SpawnDamage(damageToTake, transform.position);
+    }
 
+    public void TakeDamage(float damageToTake, bool shouldKnockBack)
+    {
+        TakeDamage(damageToTake);
+
+        if (shouldKnockBack == true)
+        {
+            knockBackCounter = knockBackTime;
+        }
+    }
 
 }

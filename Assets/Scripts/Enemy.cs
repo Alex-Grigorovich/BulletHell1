@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
         if (collider != null)
         {
             collider.isTrigger = true;
+
         }
     }
     
@@ -33,6 +34,7 @@ public class Enemy : MonoBehaviour
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 0.1f);
             }
+            
         }
         
         

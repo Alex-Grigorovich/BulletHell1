@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     private Rigidbody rigidBody;
     private Transform myTransform;
 
-
+    
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();

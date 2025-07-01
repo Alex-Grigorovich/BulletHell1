@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class PlayerHealthController : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -14,6 +15,9 @@ public class PlayerHealthController : MonoBehaviour
 
 
     public Slider healthSlider;
+    
+    
+    public Text healthText;
     
     private void Awake()
     {
@@ -26,6 +30,8 @@ public class PlayerHealthController : MonoBehaviour
 
         healthSlider.maxValue = maxHealth;
         healthSlider.value = currentHealth;
+        
+        healthText.text = currentHealth.ToString();
     }
 
     // Update is called once per frame
@@ -47,5 +53,6 @@ public class PlayerHealthController : MonoBehaviour
         }
 
         healthSlider.value = currentHealth;
+        healthText.text = currentHealth.ToString();
     }
 }

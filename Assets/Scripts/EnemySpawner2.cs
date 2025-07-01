@@ -35,7 +35,7 @@ public class EnemySpawner2 : MonoBehaviour
     public Wave[] waves;
 
     private int currentWaveIndex = 0;
-    private bool spawning = false;
+   // private bool spawning = false;
 
     private void Start()
     {
